@@ -1,5 +1,5 @@
 # Base image
-FROM python
+FROM python:3.9-slim-buster
 
 # Set working directory
 WORKDIR /app
@@ -12,6 +12,8 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy source code
 COPY app.py .
+ENV FLASK_APP=app.py
+EXPOSE 8080
 
 # Set the command to run when the container starts
-CMD ["python", "app.py"]
+CMD ["flask", "run", "host=0.0.0.0"]
