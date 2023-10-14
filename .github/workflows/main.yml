@@ -5,6 +5,7 @@ stages:
 build:
   stage: build
   image: docker:latest
+  runs-on: self-hosted
   services:
     - name: docker:dind  
   script:
@@ -14,6 +15,7 @@ build:
 
 deploy:
   stage: deploy
+  runs-on: self-hosted
   script:
     - echo "Stoping Old Server..."
     - docker stop my-django-app && docker rm my-django-app
