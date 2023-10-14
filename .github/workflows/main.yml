@@ -1,0 +1,22 @@
+stages:
+  - build
+  - deploy
+
+build:
+  stage: build
+  image: docker:latest
+  services:
+    - name: docker:dind  
+  script:
+    - echo "Building Docker image..."
+    - docker --version
+    - docker build -t my-django-app .
+
+deploy:
+  stage: deploy
+  script:
+    - echo "Stoping Old Server..."
+    - docker stop my-django-app && docker rm my-django-app
+    - echo "Deploying Docker container..."
+    - docker run --name my-django-app -p 8000:8000 -d my-django-app
+    - docker ps
