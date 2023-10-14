@@ -16,8 +16,8 @@ jobs:
     - name: Build Docker image
       run: |
         echo "Building Docker image..."
-        docker --version
-        docker build -t my-django-app .
+        sudo docker --version
+        sudo docker build -t my-django-app .
       working-directory: ./  # Change to your code directory
 
   deploy:
@@ -30,14 +30,14 @@ jobs:
     - name: Stop Old Server
       run: |
         echo "Stopping Old Server..."
-        docker stop my-django-app || true  # Ignore if container doesn't exist
-        docker rm my-django-app || true  # Ignore if container doesn't exist
+        sudo docker stop my-django-app || true  # Ignore if container doesn't exist
+        sudo docker rm my-django-app || true  # Ignore if container doesn't exist
       working-directory: ./  # Change to your code directory
 
     - name: Deploy Docker container
       run: |
         echo "Deploying Docker container..."
-        docker run --name my-django-app -p 8000:8000 -d my-django-app
-        docker ps
+        sudo docker run --name my-django-app -p 8000:8000 -d my-django-app
+        sudo docker ps
       working-directory: ./  # Change to your code directory
 
